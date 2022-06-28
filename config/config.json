@@ -1,0 +1,13 @@
+{
+    "gatewayServerPort":"12000",
+    "chainId":"localnet",
+    "restEndpoint":"http://localhost:1317",
+    "rpcEndpoint":"http://localhost:26657",
+    "daemonName":"nonamed",
+    "denom":"unoname",
+    "contractPath":"./wasm/",
+    "contractName":"contract.wasm",
+    "bech32Prefix":"noname",
+    "gasLimit":"5000000",
+    "feeAmount":"5000"
+}
