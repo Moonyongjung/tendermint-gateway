@@ -5,7 +5,8 @@ HTTP API gateway for blockchain based on Tendermint core. It can support basic f
 - Download blockchain daemon(e.g. gaiad, terrad, etc) or self-build tendermint based blockchain by using Ignite CLI in order to generate gateway address for matching prefix. 
 - Set config file
   - `./config/config.json`
-  - ```yaml
+  - 
+  ```yaml
   {
     "gatewayServerPort": "12000",
     "chainId": "localnet",
@@ -19,7 +20,7 @@ HTTP API gateway for blockchain based on Tendermint core. It can support basic f
     "gasLimit": "5000000",
     "feeAmount": "5000"
   }
-	
+  ```
   - `gatewayServerPort` : Gateway server TCP port number
   - `chainId`, `restEndpoint`, `rpcEndpoint` : Target chain information
   - `daemonName` : Downloaded or self-builded daemon name
