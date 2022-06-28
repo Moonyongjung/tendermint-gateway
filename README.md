@@ -50,7 +50,7 @@ All Parameters of request json value are string type
         "fromAddress": "a",
         "toAddress": "b",
         "amount": "100"
-   }
+  }
     ```
   - `fromAddress` : GW address
 - Store contract
@@ -65,7 +65,7 @@ All Parameters of request json value are string type
         "amount": "1000unoname",
         "label": "contract inst",
         "initMsg": "{\"purchase_price\":{\"amount\":\"100\",\"denom\":\"unoname\"}"
-   }
+  }
   ```
   - `codeId` : Contract code ID
 - Execute
@@ -76,7 +76,7 @@ All Parameters of request json value are string type
         "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt",
         "amount": "0unoname",
         "execMsg": "{\"register\":{\"name\":\"fred\"}}"
-    }
+  }
   ```
 - Query - Contract state
   - (POST) `/api/wasm/query`
@@ -85,7 +85,7 @@ All Parameters of request json value are string type
   {
         "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt",
         "queryMsg": "{\"resolve_record\": {\"name\": \"fred\"}}"
-    }
+  }
   ```
 - Query - Contract list
   - (GET) `/api/wasm/listcode`
@@ -96,7 +96,7 @@ All Parameters of request json value are string type
   ```yaml
   {
         "codeId": "1"
-    }
+  }
   ```
 - Query - Download contract wasm file
   - (POST) `/api/wasm/download`
@@ -105,7 +105,7 @@ All Parameters of request json value are string type
   {
         "codeId": "1",
         "downloadFileName":"download"
-    }
+  }
   ```
 - Query - Code information for a given code ID
   - (POST) `/api/wasm/codeinfo`
@@ -113,7 +113,7 @@ All Parameters of request json value are string type
   ```yaml
   {
         "codeId": "1"
-    }
+  }
   ```
 - Query - Contract information for a given contract address
   - (POST) `/api/wasm/contractinfo`
@@ -121,7 +121,7 @@ All Parameters of request json value are string type
   ```yaml
   {
         "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
-    }
+  }
   ```
 - Query - All of contract internal state
   - (POST) `/api/wasm/contractstateall`
@@ -129,7 +129,7 @@ All Parameters of request json value are string type
   ```yaml
   {
         "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
-    }
+  }
   ```
  - Gatway HTTP Response 
    - `resCode` is int type, `resMsg` and `resData` is string type
@@ -139,5 +139,5 @@ All Parameters of request json value are string type
         "resCode": 0,
         "resMsg": "",
         "resData": ""
-    }
+  }
   ```
