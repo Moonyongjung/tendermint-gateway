@@ -27,6 +27,27 @@ type QueryMsgStruct struct {
 	QueryMsg string
 }
 
+type ListContractByCodeMsgStruct struct {
+	CodeId string
+}
+
+type DownloadMsgStruct struct {
+	CodeId string
+	DownloadFileName string
+}
+
+type CodeInfoMsgStruct struct {
+	CodeId string
+}
+
+type ContractInfoMsgStruct struct {
+	ContractAddress string
+}
+
+type ContractStateAllMsgStruct struct {
+	ContractAddress string
+}
+
 type HttpResponseStruct struct {
 	ResCode int `json:"resCode"`
 	ResMsg string `json:"resMsg"`

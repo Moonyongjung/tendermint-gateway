@@ -12,8 +12,16 @@ type ChannelStruct struct {
 	InstantiateMsgSendChan chan wasm.MsgInstantiateContract
 	ExecuteMsgSendChan chan wasm.MsgExecuteContract
 	QueryMsgSendChan chan wasm.QuerySmartContractStateRequest
+	ListcodeMsgSendChan chan wasm.QueryCodesRequest
+	ListContractByCodeMsgSendChan chan wasm.QueryContractsByCodeRequest
+	DownloadMsgSendChan chan []interface{}
+	CodeInfoMsgSendChan chan wasm.QueryCodeRequest
+	ContractInfoMsgSendChan chan wasm.QueryContractInfoRequest
+	ContractStateAllMsgSendChan chan wasm.QueryAllContractStateRequest
+
 	TxResponseChan chan *sdk.TxResponse
-	QueryResponseChan chan wasm.QuerySmartContractStateResponse	
+	QueryResponseChan chan string
+	
 	HttpServerChan chan []byte
 	ErrorChan chan HttpResponseStruct
 }
@@ -25,8 +33,16 @@ func ChannelInit() ChannelStruct{
 	channel.InstantiateMsgSendChan = make(chan wasm.MsgInstantiateContract)
 	channel.ExecuteMsgSendChan = make(chan wasm.MsgExecuteContract)
 	channel.QueryMsgSendChan = make(chan wasm.QuerySmartContractStateRequest)
+	channel.ListcodeMsgSendChan = make(chan wasm.QueryCodesRequest)
+	channel.ListContractByCodeMsgSendChan = make(chan wasm.QueryContractsByCodeRequest)
+	channel.DownloadMsgSendChan = make(chan []interface{})
+	channel.CodeInfoMsgSendChan = make(chan wasm.QueryCodeRequest)
+	channel.ContractInfoMsgSendChan = make(chan wasm.QueryContractInfoRequest)
+	channel.ContractStateAllMsgSendChan = make(chan wasm.QueryAllContractStateRequest)
+
 	channel.TxResponseChan = make(chan *sdk.TxResponse)
-	channel.QueryResponseChan = make(chan wasm.QuerySmartContractStateResponse)
+	channel.QueryResponseChan = make(chan string)
+	
 	channel.HttpServerChan = make(chan []byte)
 	channel.ErrorChan = make(chan HttpResponseStruct)
 

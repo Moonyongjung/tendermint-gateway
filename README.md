@@ -41,6 +41,7 @@ go build gw.go
 ```
 
 ## API
+All Parameters of request json value are string type
 - Coin send (test)
   - (POST) `/api/bank/send`
   - Request body
@@ -77,7 +78,7 @@ go build gw.go
         "execMsg": "{\"register\":{\"name\":\"fred\"}}"
     }
   ```
-- Query
+- Query - Contract state
   - (POST) `/api/wasm/query`
   - Request body
   ```yaml
@@ -86,4 +87,57 @@ go build gw.go
         "queryMsg": "{\"resolve_record\": {\"name\": \"fred\"}}"
     }
   ```
-  
+- Query - Contract list
+  - (GET) `/api/wasm/listcode`
+  - Request body
+- Query - Contract information by code ID
+  - (POST) `/api/wasm/listcontractbycode`
+  - Request body
+  ```yaml
+  {
+        "codeId": "1"
+    }
+  ```
+- Query - Download contract wasm file
+  - (POST) `/api/wasm/download`
+  - Request body
+  ```yaml
+  {
+        "codeId": "1",
+        "downloadFileName":"download"
+    }
+  ```
+- Query - Code information for a given code ID
+  - (POST) `/api/wasm/codeinfo`
+  - Request body
+  ```yaml
+  {
+        "codeId": "1"
+    }
+  ```
+- Query - Contract information for a given contract address
+  - (POST) `/api/wasm/contractinfo`
+  - Request body
+  ```yaml
+  {
+        "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
+    }
+  ```
+- Query - All of contract internal state
+  - (POST) `/api/wasm/contractstateall`
+  - Request body
+  ```yaml
+  {
+        "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
+    }
+  ```
+ - Gatway HTTP Response 
+   - `resCode` is int type, `resMsg` and `resData` is string type
+   - Standard
+   ```yaml
+  {
+        "resCode": 0,
+        "resMsg": "",
+        "resData": ""
+    }
+  ```

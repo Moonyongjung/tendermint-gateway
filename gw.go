@@ -28,7 +28,7 @@ func main() {
 	Channel := cns.ChannelInit()
 	
 	go bc.TxInit(Channel)
-	go gw.RunHttpServer(Channel)
+	go gw.HttpServerInit(Channel)
 	
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)

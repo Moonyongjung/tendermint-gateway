@@ -6,6 +6,7 @@ import (
 	
 	cmclient "github.com/cosmos/cosmos-sdk/client"
 	"github.com/CosmWasm/wasmd/app"
+
 )
 
 func SetClient() cmclient.Context {
@@ -19,6 +20,7 @@ func SetClient() cmclient.Context {
 	//-- for using resolve wasm api, need to wasm's txconfig
 	clientCtx = clientCtx.WithTxConfig(app.MakeEncodingConfig().TxConfig)
 	clientCtx = clientCtx.WithChainID(chainId)
+	clientCtx = clientCtx.WithCodec(encodingConfig.Marshaler)
 	clientCtx = clientCtx.WithInterfaceRegistry(encodingConfig.InterfaceRegistry)
 	clientCtx = clientCtx.WithNodeURI(rpcEndpoint)
 
@@ -35,6 +37,7 @@ func SetClient() cmclient.Context {
 
 	//-- To check code ID of contract, broadcast mode = block
 	clientCtx = clientCtx.WithBroadcastMode("block")	
+
 	
 	return clientCtx
 }

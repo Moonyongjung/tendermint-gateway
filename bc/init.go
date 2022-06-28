@@ -65,7 +65,55 @@ func TxInit(channel cns.ChannelStruct) {
 				}
 			
 			case queryMsgSend := <- channel.QueryMsgSendChan:
-				response, err := querySend(clientCtx, queryMsgSend)
+				response, err := querySend(clientCtx, queryMsgSend, "query")
+				if err.ResCode != 0 {
+					channel.ErrorChan <- err
+				} else {
+					channel.QueryResponseChan <- response
+				}
+			
+			case listcodeMsgSend := <- channel.ListcodeMsgSendChan:
+				response, err := querySend(clientCtx, listcodeMsgSend, "listcode")
+				if err.ResCode != 0 {
+					channel.ErrorChan <- err
+				} else {
+					channel.QueryResponseChan <- response
+				}
+			
+			case listContractByCodeMsgSend := <- channel.ListContractByCodeMsgSendChan:
+				response, err := querySend(clientCtx, listContractByCodeMsgSend, "listcontractbycode")
+				if err.ResCode != 0 {
+					channel.ErrorChan <- err
+				} else {
+					channel.QueryResponseChan <- response
+				}
+				
+			case downloadMsgSend := <- channel.DownloadMsgSendChan:
+				response, err := querySend(clientCtx, downloadMsgSend, "download")
+				if err.ResCode != 0 {
+					channel.ErrorChan <- err
+				} else {
+					channel.QueryResponseChan <- response
+				}
+			
+			case codeInfoMsgSend := <- channel.CodeInfoMsgSendChan:
+				response, err := querySend(clientCtx, codeInfoMsgSend, "codeinfo")
+				if err.ResCode != 0 {
+					channel.ErrorChan <- err
+				} else {
+					channel.QueryResponseChan <- response
+				}
+			
+			case contractInfoMsgSend := <- channel.ContractInfoMsgSendChan:
+				response, err := querySend(clientCtx, contractInfoMsgSend, "contractinfo")
+				if err.ResCode != 0 {
+					channel.ErrorChan <- err
+				} else {
+					channel.QueryResponseChan <- response
+				}
+
+			case contractStateAllMsgSend := <- channel.ContractStateAllMsgSendChan:
+				response, err := querySend(clientCtx, contractStateAllMsgSend, "contractstateall")
 				if err.ResCode != 0 {
 					channel.ErrorChan <- err
 				} else {

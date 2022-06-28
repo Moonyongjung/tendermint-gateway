@@ -7,10 +7,11 @@ import (
 	"strconv"
 
 	cns "github.com/Moonyongjung/cns-gw/types"
+	"github.com/Moonyongjung/cns-gw/util"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/CosmWasm/wasmd/x/wasm/ioutils"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func ParseStoreCodeArgs(file string, sender sdk.AccAddress) (wasmtypes.MsgStoreCode, error) {
@@ -143,3 +144,41 @@ func ParseQueryArgs(queryMsgData cns.QueryMsgStruct,
 			QueryData: queryData,
 		}, nil
 	}
+
+func ParseListcodeArgs() wasmtypes.QueryCodesRequest{
+	return wasmtypes.QueryCodesRequest{
+		Pagination: defaultPagination(),
+	}
+}
+
+func ParseListContractByCodeArgs(listContractByCodeMsgData cns.ListContractByCodeMsgStruct) wasmtypes.QueryContractsByCodeRequest{
+	return wasmtypes.QueryContractsByCodeRequest{
+		CodeId: util.FromStringToUint64(listContractByCodeMsgData.CodeId),
+		Pagination: defaultPagination(),
+	}
+}
+
+func ParseDownloadArgs(downloadMsgData cns.DownloadMsgStruct) wasmtypes.QueryCodeRequest{
+	return wasmtypes.QueryCodeRequest {
+		CodeId: util.FromStringToUint64(downloadMsgData.CodeId),
+	}
+}
+
+func ParseCodeInfoArgs(codeInfoMsgData cns.CodeInfoMsgStruct) wasmtypes.QueryCodeRequest{
+	return wasmtypes.QueryCodeRequest {
+		CodeId: util.FromStringToUint64(codeInfoMsgData.CodeId),
+	}
+}
+
+func ParseContractInfoArgs(contractInfoMsgData cns.ContractInfoMsgStruct) wasmtypes.QueryContractInfoRequest{
+	return wasmtypes.QueryContractInfoRequest{
+		Address: contractInfoMsgData.ContractAddress,
+	}
+}
+
+func ParseContractStateAllArgs(contractStateAllMsgData cns.ContractStateAllMsgStruct) wasmtypes.QueryAllContractStateRequest{
+	return wasmtypes.QueryAllContractStateRequest{
+		Address: contractStateAllMsgData.ContractAddress,
+		Pagination: defaultPagination(),
+	}
+}
