@@ -146,6 +146,38 @@ func querySend(clientCtx cmclient.Context,
 		}
 	}
 
+	if option == "contracthistory" {
+		convertMsg, _ := msg.(wasmtypes.QueryContractHistoryRequest)		
+		res, err := queryClient.ContractHistory(
+			context.Background(),
+			&convertMsg,
+		)
+		if err != nil {
+			return queryErrReturn(err, response)
+		}	
+
+		out, err = PrintProto(clientCtx, res)
+		if err != nil {
+			return queryErrReturn(err, response)
+		}
+	}
+
+	if option == "pinned" {
+		convertMsg, _ := msg.(wasmtypes.QueryPinnedCodesRequest)		
+		res, err := queryClient.PinnedCodes(
+			context.Background(),
+			&convertMsg,
+		)
+		if err != nil {
+			return queryErrReturn(err, response)
+		}	
+
+		out, err = PrintProto(clientCtx, res)
+		if err != nil {
+			return queryErrReturn(err, response)
+		}
+	}
+
 	util.LogGw("Transaction response", string(out))	
 	response.ResCode = 0
 	return string(out), response

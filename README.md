@@ -42,7 +42,7 @@ go build gw.go
 
 ## API
 All Parameters of request json value are string type
-- Coin send (test)
+### Coin send (test)
   - (POST) `/api/bank/send`
   - Request body
   ``` yaml
@@ -53,10 +53,10 @@ All Parameters of request json value are string type
   }
     ```
   - `fromAddress` : GW address
-- Store contract
+### Store contract
   - (GET) `/api/wasm/store`
-  - Copy .wasm file to the `contractPath`
-- Instantiate 
+  - Request after copy .wasm file to the `contractPath`
+### Instantiate 
   - (POST) `/api/wasm/instantiate`
   - Request body
   ```yaml
@@ -68,7 +68,7 @@ All Parameters of request json value are string type
   }
   ```
   - `codeId` : Contract code ID
-- Execute
+### Execute
   - (POST) `/api/wasm/execute`
   - Request body
   ```yaml
@@ -78,7 +78,7 @@ All Parameters of request json value are string type
         "execMsg": "{\"register\":{\"name\":\"fred\"}}"
   }
   ```
-- Query - Contract state
+### Query - Contract state
   - (POST) `/api/wasm/query`
   - Request body
   ```yaml
@@ -87,18 +87,17 @@ All Parameters of request json value are string type
         "queryMsg": "{\"resolve_record\": {\"name\": \"fred\"}}"
   }
   ```
-- Query - Contract list
-  - (GET) `/api/wasm/listcode`
-  - Request body
-- Query - Contract information by code ID
-  - (POST) `/api/wasm/listcontractbycode`
+### Query - Contract list
+  - (GET) `/api/wasm/list-code`
+### Query - Contract information by code ID
+  - (POST) `/api/wasm/list-contract-by-code`
   - Request body
   ```yaml
   {
         "codeId": "1"
   }
   ```
-- Query - Download contract wasm file
+### Query - Download contract wasm file
   - (POST) `/api/wasm/download`
   - Request body
   ```yaml
@@ -107,31 +106,41 @@ All Parameters of request json value are string type
         "downloadFileName":"download"
   }
   ```
-- Query - Code information for a given code ID
-  - (POST) `/api/wasm/codeinfo`
+### Query - Code information for a given code ID
+  - (POST) `/api/wasm/code-info`
   - Request body
   ```yaml
   {
         "codeId": "1"
   }
   ```
-- Query - Contract information for a given contract address
-  - (POST) `/api/wasm/contractinfo`
+### Query - Contract information for a given contract address
+  - (POST) `/api/wasm/contract-info`
   - Request body
   ```yaml
   {
         "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
   }
   ```
-- Query - All of contract internal state
-  - (POST) `/api/wasm/contractstateall`
+### Query - All of contract internal state
+  - (POST) `/api/wasm/contract-state-all`
   - Request body
   ```yaml
   {
         "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
   }
   ```
- - Gatway HTTP Response 
+### Query - Contract history
+  - (POST) `/api/wasm/contract-history`
+  - Request body
+  ```yaml
+  {
+        "contractAddress": "noname19h0d6k4mtxw5qjr0aretjy9kwyem0hxclf88ka2uwjn47e90mqrqk4tkjt"
+  }
+  ```
+### Query - Pinned code
+  - (Get) `/api/wasm/pinned`  
+ ### Gatway HTTP Response 
    - `resCode` is int type, `resMsg` and `resData` is string type
    - Standard
    ```yaml

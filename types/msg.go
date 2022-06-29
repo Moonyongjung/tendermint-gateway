@@ -48,6 +48,10 @@ type ContractStateAllMsgStruct struct {
 	ContractAddress string
 }
 
+type ContractHistoryMsgStruct struct {
+	ContractAddress string
+}
+
 type HttpResponseStruct struct {
 	ResCode int `json:"resCode"`
 	ResMsg string `json:"resMsg"`

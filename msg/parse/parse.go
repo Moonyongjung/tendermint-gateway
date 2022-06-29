@@ -182,3 +182,16 @@ func ParseContractStateAllArgs(contractStateAllMsgData cns.ContractStateAllMsgSt
 		Pagination: defaultPagination(),
 	}
 }
+
+func ParseContractHistoryArgs(contractHistoryMsgData cns.ContractHistoryMsgStruct) wasmtypes.QueryContractHistoryRequest{
+	return wasmtypes.QueryContractHistoryRequest{
+		Address: contractHistoryMsgData.ContractAddress,
+		Pagination: defaultPagination(),
+	}
+}
+
+func ParsePinnedArgs() wasmtypes.QueryPinnedCodesRequest{
+	return wasmtypes.QueryPinnedCodesRequest{
+		Pagination: defaultPagination(),
+	}
+}

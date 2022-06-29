@@ -18,6 +18,8 @@ type ChannelStruct struct {
 	CodeInfoMsgSendChan chan wasm.QueryCodeRequest
 	ContractInfoMsgSendChan chan wasm.QueryContractInfoRequest
 	ContractStateAllMsgSendChan chan wasm.QueryAllContractStateRequest
+	ContractHistoryMsgSendChan chan wasm.QueryContractHistoryRequest
+	PinnedMsgSendChan chan wasm.QueryPinnedCodesRequest
 
 	TxResponseChan chan *sdk.TxResponse
 	QueryResponseChan chan string
@@ -39,6 +41,8 @@ func ChannelInit() ChannelStruct{
 	channel.CodeInfoMsgSendChan = make(chan wasm.QueryCodeRequest)
 	channel.ContractInfoMsgSendChan = make(chan wasm.QueryContractInfoRequest)
 	channel.ContractStateAllMsgSendChan = make(chan wasm.QueryAllContractStateRequest)
+	channel.ContractHistoryMsgSendChan = make(chan wasm.QueryContractHistoryRequest)
+	channel.PinnedMsgSendChan = make(chan wasm.QueryPinnedCodesRequest)
 
 	channel.TxResponseChan = make(chan *sdk.TxResponse)
 	channel.QueryResponseChan = make(chan string)

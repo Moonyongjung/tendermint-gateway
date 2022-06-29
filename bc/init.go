@@ -6,6 +6,8 @@ import (
 	"github.com/Moonyongjung/cns-gw/key"
 	"github.com/Moonyongjung/cns-gw/util"
 	cns "github.com/Moonyongjung/cns-gw/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 func TxInit(channel cns.ChannelStruct) {	
 	//-- Cosmos SDK client init
@@ -33,93 +35,79 @@ func TxInit(channel cns.ChannelStruct) {
 		for {
 			select{
 			case bankMsgSend := <- channel.BankMsgSendChan:
-				response, err := txCreate(priv, accNum, gwAdd, clientCtx, bankMsgSend, "bank")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.TxResponseChan <- response
-				}
+				txResponse, httpResponse := txCreate(priv, accNum, gwAdd, clientCtx, bankMsgSend, "bank")
+				txResponseFunc(txResponse, httpResponse, channel)
 
 			case storeMsgSend := <- channel.StoreMsgSendChan:
-				response, err := txCreate(priv, accNum, gwAdd, clientCtx, storeMsgSend, "store")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.TxResponseChan <- response
-				}
+				txResponse, httpResponse := txCreate(priv, accNum, gwAdd, clientCtx, storeMsgSend, "store")
+				txResponseFunc(txResponse, httpResponse, channel)
 
 			case instantiateMsgSend := <- channel.InstantiateMsgSendChan:
-				response, err := txCreate(priv, accNum, gwAdd, clientCtx, instantiateMsgSend, "instantiate")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.TxResponseChan <- response
-				}
+				txResponse, httpResponse := txCreate(priv, accNum, gwAdd, clientCtx, instantiateMsgSend, "instantiate")
+				txResponseFunc(txResponse, httpResponse, channel)
 
 			case executeMsgSend := <- channel.ExecuteMsgSendChan:
-				response, err := txCreate(priv, accNum, gwAdd, clientCtx, executeMsgSend, "execute")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.TxResponseChan <- response
-				}
+				txResponse, httpResponse := txCreate(priv, accNum, gwAdd, clientCtx, executeMsgSend, "execute")
+				txResponseFunc(txResponse, httpResponse, channel)
 			
 			case queryMsgSend := <- channel.QueryMsgSendChan:
-				response, err := querySend(clientCtx, queryMsgSend, "query")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, queryMsgSend, "query")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 			
 			case listcodeMsgSend := <- channel.ListcodeMsgSendChan:
-				response, err := querySend(clientCtx, listcodeMsgSend, "listcode")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, listcodeMsgSend, "listcode")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 			
 			case listContractByCodeMsgSend := <- channel.ListContractByCodeMsgSendChan:
-				response, err := querySend(clientCtx, listContractByCodeMsgSend, "listcontractbycode")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, listContractByCodeMsgSend, "listcontractbycode")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 				
 			case downloadMsgSend := <- channel.DownloadMsgSendChan:
-				response, err := querySend(clientCtx, downloadMsgSend, "download")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, downloadMsgSend, "download")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 			
 			case codeInfoMsgSend := <- channel.CodeInfoMsgSendChan:
-				response, err := querySend(clientCtx, codeInfoMsgSend, "codeinfo")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, codeInfoMsgSend, "codeinfo")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 			
 			case contractInfoMsgSend := <- channel.ContractInfoMsgSendChan:
-				response, err := querySend(clientCtx, contractInfoMsgSend, "contractinfo")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, contractInfoMsgSend, "contractinfo")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 
 			case contractStateAllMsgSend := <- channel.ContractStateAllMsgSendChan:
-				response, err := querySend(clientCtx, contractStateAllMsgSend, "contractstateall")
-				if err.ResCode != 0 {
-					channel.ErrorChan <- err
-				} else {
-					channel.QueryResponseChan <- response
-				}
+				queryResponse, httpResponse := querySend(clientCtx, contractStateAllMsgSend, "contractstateall")
+				queryResponseFunc(queryResponse, httpResponse, channel)
+
+			case contractHistoryMsgSend := <- channel.ContractHistoryMsgSendChan:
+				queryResponse, httpResponse := querySend(clientCtx, contractHistoryMsgSend, "contracthistory")
+				queryResponseFunc(queryResponse, httpResponse, channel)
+
+			case pinnedMsgSend := <- channel.PinnedMsgSendChan:
+				queryResponse, httpResponse := querySend(clientCtx, pinnedMsgSend, "pinned")
+				queryResponseFunc(queryResponse, httpResponse, channel)
 			}
 		}
+	}
+}
+
+func txResponseFunc(txResponse *sdk.TxResponse, 
+	httpResponse cns.HttpResponseStruct,
+	channel cns.ChannelStruct) {
+
+	if httpResponse.ResCode != 0 {
+		channel.ErrorChan <- httpResponse
+	} else {
+		channel.TxResponseChan <- txResponse
+	}
+}
+
+func queryResponseFunc(queryResponse string, 
+	httpResponse cns.HttpResponseStruct,
+	channel cns.ChannelStruct) {
+
+	if httpResponse.ResCode != 0 {
+		channel.ErrorChan <- httpResponse
+	} else {
+		channel.QueryResponseChan <- queryResponse
 	}
 }
