@@ -51,7 +51,7 @@ All Parameters of request json value are string type
         "toAddress": "b",
         "amount": "100"
   }
-    ```
+  ```
   - `fromAddress` : GW address
 ### Store contract
   - (GET) `/api/wasm/store`
@@ -141,9 +141,9 @@ All Parameters of request json value are string type
 ### Query - Pinned code
   - (Get) `/api/wasm/pinned`  
  ### Gatway HTTP Response 
-   - `resCode` is int type, `resMsg` and `resData` is string type
-   - Standard
-   ```yaml
+  - `resCode` is int type, `resMsg` and `resData` is string type
+  - Standard
+  ```yaml
   {
         "resCode": 0,
         "resMsg": "",
